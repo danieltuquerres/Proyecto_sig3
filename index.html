@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geovisor Microempresas</title>
+
+  <!-- Enlaces de estilo y scripts -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Barra superior -->
+  <div class="top-bar">
+    Geovisor Microempresas
+  </div>
+
+  <!-- Contenedor principal -->
+  <div class="container">
+    <!-- Barra lateral -->
+    <div class="sidebar">
+      <!--<h2>Mi Barra Lateral</h2>
+      <a href="#">Enlace 1</a>
+      <a href="#">Enlace 2</a>
+      <a href="#">Enlace 3</a>
+      <a href="#">Enlace 4</a>-->
+
+      <!-- Control de capas -->
+      <div class="info">
+        <h3>Contro de Capas</h3>
+        <div id="layerControl"></div>
+      </div>
+
+      <!-- Leyenda -->
+<div class="info">
+  <h4>Leyendas</h4>
+  <div id="legendContainer">
+    <div>
+      <b>Barrios</b><br>
+      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=barrios" alt="Leyenda barrios">
+    </div>
+    <div>
+      <b>Densidad Poblacional - Comunas</b><br>
+      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=comunas" alt="Leyenda Comunas">
+    </div>
+    <div>
+      <b>Negocios de Belleza</b><br>
+      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=negocios_belleza_osm" alt="Leyenda negocios">
+    </div>
+    <div>
+      <b>Uso de Suelos</b><br>
+      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=usos_suelo" alt="Leyenda Uso de Suelos">
+    </div>
+    <div>
+      <b>Jerarquización Vial</b><br>
+      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=vias" alt="Leyenda negocios">
+    </div>
+  </div>
+</div>
+
+
+      <!-- Recuadro para información de atributos -->
+      <div id="attributeInfo">
+        <h4>Información Atributos</h4>
+        <div id="attributesContent">Selecciona una capa para ver sus atributos.</div>
+      </div>
+
+    </div>
+
+    <!-- Mapa -->
+    <div id="map"></div>
+  </div>
+
+  <!-- Scripts del mapa -->
+  <script>
+    const map = L.map('map').setView([3.54167, -76.53444], 13);  // Ajusta a tu zona
+
+    // Cargar la capa base de OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Crear las capas WMS
+    const capabarrios = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+      layers: 'barrios',
+      format: 'image/png',
+      transparent: true,
+      attribution: "Datos de tu base de datos"
+    });
+
+    const capadensidad = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+      layers: 'comunas',
+      format: 'image/png',
+      transparent: true,
+      attribution: "© Datos de la base de datos"
+    });
+
+    const capanegocios = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+      layers: 'negocios_belleza_osm',
+      format: 'image/png',
+      transparent: true,
+      attribution: "Datos de la base de datos"
+    });
+
+     const capauso = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+      layers: 'usos_suelo',
+      format: 'image/png',
+      transparent: true,
+      attribution: "Datos de la base de datos"
+    });
+
+     const capavias = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+      layers: 'vias',
+      format: 'image/png',
+      transparent: true,
+      attribution: "Datos de la base de datos"
+    });
+
+    // Agregar las capas WMS al mapa
+    const layers = {
+      "Barrios": capabarrios,
+      "Densidad Poblacional": capadensidad,
+      "Negocios de Belleza": capanegocios,
+      "Uso de Suelos": capauso,
+      "Vías": capavias,
+    };
+
+    // Añadir los botones para activar/desactivar las capas en la barra lateral
+    const layerControlDiv = document.getElementById('layerControl');
+
+    for (const layerName in layers) {
+      const layerButton = document.createElement('button');
+      layerButton.innerText = layerName;
+      layerButton.style.margin = '5px 0';
+      layerButton.onclick = function() {
+        const layer = layers[layerName];
+        if (map.hasLayer(layer)) {
+          map.removeLayer(layer);
+        } else {
+          map.addLayer(layer);
+        }
+      };
+      layerControlDiv.appendChild(layerButton);
+    }
+
+    // Crear el contenedor de GeoJSON para cargar las capas WFS
+    const geojsonLayer = L.geoJSON().addTo(map);
+
+    // URL del servicio WFS (reemplaza con tu URL WFS real)
+    const wfsUrl = 'http://localhost:8080/geoserver/sig3_geovisor/?service=WFS&version=1.0.0&request=GetFeature&typeName=sig3_geovisor:vista_negocios_comunas_17_22&outputFormat=application/json';
+
+    // Cargar la capa WFS como GeoJSON
+    fetch(wfsUrl)
+      .then(response => response.json())
+      .then(data => {
+        // Añadir la capa GeoJSON al mapa
+        geojsonLayer.addData(data);
+
+        // Evento de clic para mostrar los atributos de las características
+        geojsonLayer.on('click', function(e) {
+          const attributes = e.layer.feature.properties;
+          const contentDiv = document.getElementById('attributesContent');
+          contentDiv.innerHTML = "<b>Atributos:</b><br>";
+
+          // Iterar sobre las propiedades de los atributos y mostrarlas
+          for (const key in attributes) {
+            contentDiv.innerHTML += `${key}: ${attributes[key]}<br>`;
+          }
+        });
+      })
+      .catch(error => {
+        console.error("Error al cargar la capa WFS:", error);
+      });
+
+    // ** 3. Geolocalización **
+    //L.control.locate().addTo(map);  // Muestra la ubicación del usuario
+
+    // ** 5. Escala del mapa **
+    L.control.scale({ position: 'bottomright' }).addTo(map);  // Solo la escala
+
+    // ** 6. Dibujo de formas (Polígonos, Líneas, etc.) **
+    const drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    const drawControl = new L.Control.Draw({
+      draw: {
+        polygon: true,
+        polyline: true,
+        circle: true,
+        marker: true
+      },
+      edit: {
+        featureGroup: drawnItems
+      }
+    });
+
+    map.addControl(drawControl);
+
+    // ** 8. Búsqueda y Geocodificación **
+    L.Control.geocoder().addTo(map);  // Agrega el control de búsqueda en el mapa
+
+    // ** 10. Animación de desplazamiento (FlyTo) **
+    map.flyTo([3.45, -76.53], 13, { animate: true });
+
+    // ** 11. Popups y alertas geográficas **
+    map.on('click', function(e) {
+      const lat = e.latlng.lat;
+      const lng = e.latlng.lng;
+      L.popup()
+        .setLatLng([lat, lng])
+        .setContent(`<b>Ubicación seleccionada:</b><br>Lat: ${lat}, Lng: ${lng}`)
+        .openOn(map);
+    });
+
+    // ** 12. Eventos del mapa **
+    map.on('zoomend', function() {
+      const zoomLevel = map.getZoom();
+      console.log(`Nivel de zoom actual: ${zoomLevel}`);
+    });
+  </script>
+
+</body>
+</html>

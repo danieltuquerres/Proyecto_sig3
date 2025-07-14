@@ -1,0 +1,137 @@
+/* ---- MEJORAS GENERALES ---- */
+
+/* 1. Importar la fuente 'Roboto' de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* 2. Estructura para que la página no tenga scroll */
+html, body {
+  height: 100vh; /* Ocupa el 100% de la altura de la ventana */
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif; /* Aplicar la nueva fuente */
+  display: flex;
+  flex-direction: column; /* Organiza los elementos en columna (barra superior y contenedor) */
+  overflow: hidden; /* Evita el scroll en el body */
+  background-color: #f4f4f9; /* Un color de fondo suave */
+}
+
+/* ---- BARRA SUPERIOR ---- */
+.top-bar {
+  background-color: #0d47a1; /* Un azul más oscuro y profesional */
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0; /* Evita que la barra se encoja */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 10;
+}
+
+/* ---- CONTENEDOR PRINCIPAL ---- */
+.container {
+  display: flex;
+  flex-grow: 1; /* Hace que el contenedor ocupe todo el espacio restante */
+  padding: 15px;
+  gap: 15px; /* Espacio entre la barra lateral y el mapa */
+  overflow: hidden; /* Oculta cualquier desbordamiento */
+}
+
+/* ---- MAPA ---- */
+#map {
+  flex-grow: 1; /* El mapa ocupa todo el espacio disponible */
+  height: 100%; /* El mapa ocupa toda la altura de su contenedor */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: relative; /* Necesario para posicionar la rosa de los vientos dentro */
+}
+
+/* ---- NUEVO: ROSA DE LOS VIENTOS ---- */
+.compass-rose {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 70px; /* Tamaño del icono */
+  height: 70px;
+  /* La imagen es un SVG incrustado para no depender de archivos externos */
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 0 L40 40 L50 100 L60 40 Z" fill="%23424242"/><path d="M50 0 L60 60 L50 100 L40 60 Z" fill="%23616161" transform="rotate(90 50 50)"/><circle cx="50" cy="50" r="25" fill="white" stroke="%23424242" stroke-width="3"/><text x="50" y="18" font-size="16" fill="%23212121" text-anchor="middle" font-family="Roboto" font-weight="bold">N</text></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 1000; /* Se asegura que esté sobre el mapa */
+  pointer-events: none; /* Evita que intercepte los clics del mapa */
+}
+
+
+/* ---- BARRA LATERAL ---- */
+.sidebar {
+  width: 25%; /* Un poco más de espacio */
+  max-width: 350px; /* Ancho máximo */
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espacio entre secciones */
+  overflow-y: auto; /* Permite scroll solo en la barra si el contenido es muy largo */
+}
+
+.sidebar h2, .sidebar h3, .sidebar h4 {
+  margin: 0 0 10px 0;
+  color: #1a237e;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+/* ---- CONTROLES Y LEYENDAS DENTRO DE LA BARRA ---- */
+.info {
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+#layerControl button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#layerControl button:hover {
+  background-color: #303f9f;
+  transform: translateY(-1px); /* Efecto sutil al pasar el mouse */
+}
+
+.sidebar a {
+  display: block;
+  color: #3f51b5;
+  text-decoration: none;
+  padding: 8px 0;
+}
+
+.sidebar a:hover {
+  text-decoration: underline;
+}
+
+/* ---- RECUADRO DE ATRIBUTOS ---- */
+#attributeInfo {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  min-height: 150px; /* Altura mínima */
+  overflow-y: auto;
+  flex-shrink: 0; /* Evita que se encoja */
+}
+
+#attributesContent {
+    word-wrap: break-word; /* Asegura que texto largo no rompa el diseño */
+}

@@ -43,23 +43,23 @@
   <div id="legendContainer">
     <div>
       <b>Barrios</b><br>
-      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=barrios" alt="Leyenda barrios">
+      <img src="http://34.224.164.210:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=barrios" alt="Leyenda barrios">
     </div>
     <div>
       <b>Densidad Poblacional - Comunas</b><br>
-      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=comunas" alt="Leyenda Comunas">
+      <img src="http://34.224.164.210:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=comunas" alt="Leyenda Comunas">
     </div>
     <div>
       <b>Negocios de Belleza</b><br>
-      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=negocios_belleza_osm" alt="Leyenda negocios">
+      <img src="http://34.224.164.210:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=negocios_belleza_osm" alt="Leyenda negocios">
     </div>
     <div>
       <b>Uso de Suelos</b><br>
-      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=usos_suelo" alt="Leyenda Uso de Suelos">
+      <img src="http://34.224.164.210:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=usos_suelo" alt="Leyenda Uso de Suelos">
     </div>
     <div>
       <b>Jerarquización Vial</b><br>
-      <img src="http://localhost:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=vias" alt="Leyenda negocios">
+      <img src="http://34.224.164.210:8080/geoserver/proyecto_sig3/wms?SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image/png&LAYER=vias" alt="Leyenda negocios">
     </div>
   </div>
 </div>
@@ -87,35 +87,35 @@
     }).addTo(map);
 
     // Crear las capas WMS
-    const capabarrios = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+    const capabarrios = L.tileLayer.wms("http://34.224.164.210:8080/geoserver/proyecto_sig3/wms", {
       layers: 'barrios',
       format: 'image/png',
       transparent: true,
       attribution: "Datos de tu base de datos"
     });
 
-    const capadensidad = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+    const capadensidad = L.tileLayer.wms("http://34.224.164.210:8080/geoserver/proyecto_sig3/wms", {
       layers: 'comunas',
       format: 'image/png',
       transparent: true,
       attribution: "© Datos de la base de datos"
     });
 
-    const capanegocios = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+    const capanegocios = L.tileLayer.wms("http://34.224.164.210:8080/geoserver/proyecto_sig3/wms", {
       layers: 'negocios_belleza_osm',
       format: 'image/png',
       transparent: true,
       attribution: "Datos de la base de datos"
     });
 
-     const capauso = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+     const capauso = L.tileLayer.wms("http://34.224.164.210:8080/geoserver/proyecto_sig3/wms", {
       layers: 'usos_suelo',
       format: 'image/png',
       transparent: true,
       attribution: "Datos de la base de datos"
     });
 
-     const capavias = L.tileLayer.wms("http://localhost:8080/geoserver/proyecto_sig3/wms", {
+     const capavias = L.tileLayer.wms("http://34.224.164.210:8080/geoserver/proyecto_sig3/wms", {
       layers: 'vias',
       format: 'image/png',
       transparent: true,
@@ -153,7 +153,7 @@
     const geojsonLayer = L.geoJSON().addTo(map);
 
     // URL del servicio WFS (reemplaza con tu URL WFS real)
-    const wfsUrl = 'http://localhost:8080/geoserver/sig3_geovisor/?service=WFS&version=1.0.0&request=GetFeature&typeName=sig3_geovisor:vista_negocios_comunas_17_22&outputFormat=application/json';
+    const wfsUrl = 'http://34.224.164.210:8080/geoserver/sig3_geovisor/?service=WFS&version=1.0.0&request=GetFeature&typeName=sig3_geovisor:vista_negocios_comunas_17_22&outputFormat=application/json';
 
     // Cargar la capa WFS como GeoJSON
     fetch(wfsUrl)

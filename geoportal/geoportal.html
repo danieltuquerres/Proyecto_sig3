@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoPortal Belleza Comuna 17</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- General Styles --- */
+        :root {
+            --primary-color: #00897B; /* Teal */
+            --secondary-color: #4DB6AC; /* Lighter Teal */
+            --dark-color: #263238; /* Dark Grey */
+            --light-color: #F5F5F5; /* Light Grey Background */
+            --text-color: #333;
+            --white-color: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: var(--white-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        main {
+            flex-grow: 1;
+        }
+
+        h1, h2, h3 {
+            color: var(--dark-color);
+        }
+        
+        h2 {
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background-color: var(--dark-color);
+            color: var(--white-color);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        header .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        header .logo a {
+            color: var(--white-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav li {
+            margin-left: 2rem;
+        }
+
+        nav a {
+            color: var(--white-color);
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--secondary-color);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white-color);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+        }
+        
+        footer p {
+            margin: 0.2rem 0;
+        }
+
+        /* --- Page Specific Styles --- */
+        
+        /* Home Page */
+        .hero {
+            text-align: center;
+            padding: 3rem 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem auto;
+        }
+        
+        .cta-buttons a {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            margin: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-buttons a:hover {
+            background-color: #00695C; /* Darker Teal */
+        }
+        
+        .cta-buttons a.secondary {
+             background-color: var(--secondary-color);
+        }
+        .cta-buttons a.secondary:hover {
+             background-color: #26A69A;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; /* Important for padding */
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            display: inline-block;
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--white-color);
+            padding: 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: #00695C;
+        }
+        
+        /* Methodology */
+        .phase {
+            background-color: #fdfdfd;
+            border-left: 5px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 5px 5px 0;
+        }
+        .phase h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+        }
+        .phase ul {
+            padding-left: 20px;
+        }
+        
+        /* Contact */
+        .contact-info, .team-info {
+            line-height: 1.8;
+        }
+        
+        /* Geovisor */
+        .geovisor-container p {
+            font-style: italic;
+            text-align: center;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        .geovisor-placeholder {
+            width: 100%;
+            border: 2px dashed #ccc;
+            padding: 2rem;
+            text-align: center;
+            background-color: #fafafa;
+            border-radius: 8px;
+        }
+        .geovisor-placeholder img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="#home">GeoPortal Comuna 17</a></div>
+        <nav>
+            <ul>
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#geovisor">Geovisor</a></li>
+                <li><a href="#formulario">Formulario</a></li>
+                <li><a href="#metodologia">Metodología</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <div id="home" class="container">
+            <div class="hero">
+                <h1>Plataforma de Apoyo Estratégico para el Sector Belleza</h1>
+                <p>Una herramienta geomática de bajo costo diseñada para la planificación y análisis de mercado de las microempresas del sector belleza en la <strong>Comuna 17 de Santiago de Cali</strong>.</p>
+                <div class="cta-buttons">
+                    <a href="#geovisor">Explorar el Geovisor</a>
+                    <a href="#formulario" class="secondary">Registre su Negocio</a>
+                </div>
+            </div>
+
+            <h2>El Problema</h2>
+            <p>Las microempresas son vitales para la economía, pero enfrentan una alta tasa de fracaso, donde el 67% cierra antes de los cinco años. En la Comuna 17, la alta concentración de negocios de belleza genera un mercado saturado y altamente competitivo. La falta de acceso a tecnologías para el análisis de datos espaciales limita la capacidad de estos negocios para tomar decisiones estratégicas sobre su ubicación y operaciones.</p>
+
+            <h2>Nuestra Solución</h2>
+            <p>Este geoportal ofrece una solución de <strong>Open Access</strong> (Acceso Abierto) que utiliza Sistemas de Información Geográfica (SIG) para analizar variables clave del mercado. La herramienta permite a los microempresarios visualizar la competencia, identificar la demanda del mercado y encontrar ubicaciones óptimas, reduciendo la incertidumbre y aumentando las posibilidades de éxito[cite: 308, 309]. El proyecto es una iniciativa académica de estudiantes de la <strong>Universidad del Valle</strong>.</p>
+        </div>
+
+
+        <div id="geovisor" class="container" style="display:none;">
+            <h2>Geovisor Interactivo de Oportunidades</h2>
+            <div class="geovisor-container">
+                <p>Esta es una demostración conceptual del Geovisor. Una aplicación real ofrecería un mapa interactivo con las siguientes funcionalidades.</p>
+                
+                <div class="geovisor-placeholder">
+                     <h3>Mapa de la Comuna 17</h3>
+                     <img src="https://i.imgur.com/vH3sK5G.png" alt="Mockup del Geovisor mostrando un mapa de la Comuna 17 con puntos de interés.">
+                </div>
+
+                <h3>Funcionalidades Clave</h3>
+                <ul>
+                    <li><strong>Visualización de Capas de Información:</strong> Muestra la ubicación de peluquerías, estéticas y barberías existentes.</li>
+                    <li><strong>Análisis de Densidad:</strong> Identifica "zonas calientes" (alta competencia) y "zonas de oportunidad" (mercado potencial).</li>
+                    <li><strong>Filtros Personalizados:</strong> Permite filtrar por densidad poblacional, nivel socioeconómico e infraestructura vial para un análisis detallado.</li>
+                    <li><strong>Consulta de Locales:</strong> Muestra locales comerciales disponibles para arriendo en áreas de interés.</li>
+                    <li><strong>Generación de Reportes:</strong> Permite a los usuarios descargar informes en formato PDF y Excel con los datos y análisis visualizados.</li>
+                    <li><strong>Análisis Multicriterio:</strong> Herramienta para evaluar y ponderar variables para recomendar las ubicaciones más óptimas.</li>
+                </ul>
+            </div>
+        </div>
+
+        
+        <div id="formulario" class="container" style="display:none;">
+            <h2>Registro y Actualización de Negocios</h2>
+            <p>Su colaboración es fundamental para mantener la información de este geoportal precisa y actualizada. Por favor, complete el siguiente formulario para registrar un nuevo negocio o para actualizar los datos de uno existente en la Comuna 17.</p>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="nombre_est">Nombre del Establecimiento</label>
+                    <input type="text" id="nombre_est" name="nombre_est" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="tipo_est">Tipo de Establecimiento</label>
+                    <select id="tipo_est" name="tipo_est" required>
+                        <option value="">-- Seleccione una opción --</option>
+                        <option value="peluqueria">Peluquería</option>
+                        <option value="barberia">Barbería</option>
+                        <option value="estetica">Estética</option>
+                        <option value="otro">Otro tratamiento de belleza</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="direccion">Dirección</label>
+                    <input type="text" id="direccion" name="direccion" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="barrio">Barrio</label>
+                    <input type="text" id="barrio" name="barrio" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="telefono">Teléfono de Contacto</label>
+                    <input type="tel" id="telefono" name="telefono">
+                </div>
+
+                <div class="form-group">
+                    <label for="servicios">Servicios Principales que Ofrece</label>
+                    <textarea id="servicios" name="servicios" placeholder="Ej: Corte de cabello, manicure, pedicure, tratamientos faciales, etc."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Enviar Información</button>
+            </form>
+        </div>
+
+
+        <div id="metodologia" class="container" style="display:none;">
+            <h2>Metodología del Proyecto</h2>
+            <p>Para desarrollar una herramienta robusta y objetiva, el proyecto se basa en una metodología que combina <strong>análisis espacial y análisis multicriterio</strong>. Se utiliza el Proceso de Jerarquización Analítica (AHP) para ponderar criterios clave y asegurar una toma de decisiones informada.</p>
+            
+            <p>El flujo de trabajo se estructura en las siguientes fases:</p>
+
+            <div class="phase">
+                <h3>Fase 1: Planificación y Recopilación</h3>
+                <ul>
+                    <li>Definición de objetivos y alcance del proyecto.</li>
+                    <li>Identificación de fuentes de datos geográficos y socioeconómicos.</li>
+                    <li>Recopilación de datos de fuentes como la Cámara de Comercio de Cali, DANE y OpenStreetMap.</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>Fase 2: Procesamiento de Datos</h3>
+                <ul>
+                    <li>Integración de todos los datos en una plataforma SIG (Sistema de Información Geográfica).</li>
+                    <li>Limpieza, normalización y estandarización de los datos para garantizar su calidad.</li>
+                    <li>Generación de capas de información y mapas base sobre la distribución comercial y la demanda del mercado.</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>Fase 3: Análisis Multicriterio (AHP)</h3>
+                <ul>
+                    <li>Definición de los criterios de selección para una ubicación óptima (ej. accesibilidad, densidad poblacional, competencia).</li>
+                    <li>Aplicación de la metodología AHP para asignar pesos a cada criterio según su importancia.</li>
+                    <li>Creación de matrices de comparación para evaluar las diferentes zonas de la Comuna 17.</li>
+                </ul>
+            </div>
+
+            <div class="phase">
+                <h3>Fase 4: Validación y Selección Final</h3>
+                <ul>
+                    <li>Análisis de los resultados para identificar las zonas con mayor potencial.</li>
+                    <li>Validación en campo para verificar las condiciones del entorno.</li>
+                    <li>Selección de las zonas óptimas y elaboración de informes finales.</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div id="contacto" class="container" style="display:none;">
+            <h2>Contacto y Equipo del Proyecto</h2>
+            <div class="contact-info">
+                <h3>Información del Proyecto</h3>
+                <p>
+                    <strong>Nombre:</strong> Implementación de un SIG para el apoyo y planificación estratégica de microempresas de la comuna 17 de Santiago de Cali[cite: 235, 236].<br>
+                    <strong>Institución:</strong> Universidad del Valle.<br>
+                    <strong>Facultad:</strong> Facultad de Ingeniería.<br>
+                    <strong>Escuela:</strong> Escuela de Ingeniería Civil y Geomática.<br>
+                    <strong>Ubicación:</strong> Santiago de Cali, Colombia.
+                </p>
+            </div>
+            
+            <hr>
+
+            <div class="team-info">
+                <h3>Equipo de Desarrollo</h3>
+                <p>
+                    <strong>Estudiantes:</strong><br>
+                    - Emerson Diaz Oviedo <br>
+                    - Daniel Alejandro Tuquerres <br>
+                    - Ricardo Andres Rojas Quintero 
+                </p>
+                <p>
+                    <strong>Profesor a Cargo:</strong><br>
+                    - Ing. Robin Alexis Olaya, M.Sc. 
+                </p>
+            </div>
+            
+            <hr>
+
+            <h3>Formulario de Contacto</h3>
+            <p>Si tiene alguna pregunta o sugerencia, no dude en enviarnos un mensaje.</p>
+            <form action="#" method="POST">
+                 <div class="form-group">
+                    <label for="contact_name">Su Nombre</label>
+                    <input type="text" id="contact_name" name="contact_name" required>
+                </div>
+                 <div class="form-group">
+                    <label for="contact_email">Su Correo Electrónico</label>
+                    <input type="email" id="contact_email" name="contact_email" required>
+                </div>
+                 <div class="form-group">
+                    <label for="contact_subject">Asunto</label>
+                    <input type="text" id="contact_subject" name="contact_subject" required>
+                </div>
+                 <div class="form-group">
+                    <label for="contact_message">Mensaje</label>
+                    <textarea id="contact_message" name="contact_message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Enviar Mensaje</button>
+            </form>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GeoPortal Belleza Comuna 17. Todos los derechos reservados.</p>
+        <p>Un proyecto de Open Access de la Universidad del Valle.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navLinks = document.querySelectorAll('nav a');
+            const pages = document.querySelectorAll('main > .container');
+
+            function showPage(hash) {
+                pages.forEach(page => {
+                    page.style.display = 'none';
+                });
+                
+                const activePage = document.querySelector(hash);
+                if (activePage) {
+                    activePage.style.display = 'block';
+                } else {
+                    document.querySelector('#home').style.display = 'block'; // Default to home
+                }
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if(link.getAttribute('href') === hash) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    window.location.hash = targetId;
+                });
+            });
+
+            window.addEventListener('hashchange', () => {
+                showPage(window.location.hash || '#home');
+            });
+            
+            // Initial page load
+            showPage(window.location.hash || '#home');
+        });
+    </script>
+
+</body>
+</html>
